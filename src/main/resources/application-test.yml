@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    write:
+      url: jdbc:h2:mem:writeDb;DB_CLOSE_DELAY=-1
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+
+    read:
+      url: jdbc:h2:mem:readDb;DB_CLOSE_DELAY=-1
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 100
+        order_inserts: true
+        order_updates: true
