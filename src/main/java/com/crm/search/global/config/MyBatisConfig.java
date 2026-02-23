@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @MapperScan(
-        basePackages = "com.crm.search.domain",
+        basePackages = "com.crm.search.infra.mybatis.mapper",
         sqlSessionFactoryRef = "sqlSessionFactory"
 )
 public class MyBatisConfig {

@@ -14,11 +14,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import javax.sql.DataSource;
 import java.util.Map;
 
-// 차후 read, write 두 개 db 사용
 @Configuration
-@EnableJpaRepositories(
-        basePackages = "com.crm.search.domain"
-)
+@EnableJpaRepositories(basePackages = "com.crm.search.domain")
 public class JPAConfig {
 
     private final DataSource dataSource;
@@ -38,7 +35,7 @@ public class JPAConfig {
 
         return builder
                 .dataSource(dataSource)
-                .packages("com.kss.search.domain")
+                .packages("com.crm.search.domain")
                 .persistenceUnit("default")
                 .properties(properties)
                 .build();
