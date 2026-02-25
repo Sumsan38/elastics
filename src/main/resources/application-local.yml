@@ -29,8 +29,5 @@ spring:
         order_inserts: true
         order_updates: true
 
-  mybatis:
-    mapper-locations: classpath:mapper/**/*.xml
-    type-aliases-package: com.crm.search.domain
-    configuration:
-      map-underscore-to-camel-case: true
+  elasticsearch:
+    uris: http://localhost:9200

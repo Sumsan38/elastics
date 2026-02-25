@@ -23,3 +23,6 @@ spring:
           batch_size: 100
         order_inserts: true
         order_updates: true
+
+  elasticsearch:
+    uris: http://localhost:9200

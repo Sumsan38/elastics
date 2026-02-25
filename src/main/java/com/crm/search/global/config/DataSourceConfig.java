@@ -2,8 +2,8 @@ package com.crm.search.global.config;
 
 import com.crm.search.global.datasource.DataSourceType;
 import com.crm.search.global.datasource.RoutingDataSource;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.autoconfigure.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
