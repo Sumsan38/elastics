@@ -17,7 +17,8 @@ public class MyBatisTestDbInitConfig {
             DataSource readDataSource
     ) {
         return args -> {
-
+            createTable(writeDataSource);
+            createTable(readDataSource);
         };
     }
 

@@ -5,9 +5,7 @@
 
 <mapper namespace="com.crm.search.infra.mybatis.mapper.TestMyBatisMapper">
     <select id="selectJdbcUrl" resultType="string">
-        SELECT VALUE
-        FROM INFORMATION_SCHEMA.SETTINGS
-        WHERE NAME = 'URL'
+        SELECT DATABASE()
     </select>
 
     <insert id="insertName">

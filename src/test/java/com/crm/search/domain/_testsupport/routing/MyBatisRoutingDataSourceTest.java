@@ -2,6 +2,7 @@ package com.crm.search.domain._testsupport.routing;
 
 import com.crm.search.infra.mybatis.mapper.TestMyBatisMapper;
 import org.junit.jupiter.api.Test;
+import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -25,7 +26,7 @@ public class MyBatisRoutingDataSourceTest {
         String url = testMyBatisMapper.selectJdbcUrl();
 
         assertThat(url).isNotNull();
-        assertThat(url).contains("readDb");
+        assertThat(url).containsIgnoringCase("readDb");
     }
 
     @Test
@@ -35,5 +36,13 @@ public class MyBatisRoutingDataSourceTest {
         assertThatThrownBy(() -> testMyBatisMapper.insertName("BLOCK")).isInstanceOf(Exception.class);
     }
 
-
+    @Test
+    @Transactional
+    void mybatisInsert_shouldFail_allTransaction(){
+        // mybatis의 경우에 모든 @Transaction 활동이 실패한다.
+        assertThatThrownBy(() -> testMyBatisMapper.insertName("BLOCK"))
+                .isInstanceOf(MyBatisSystemException.class)
+                // MyBatisReadOnlyInterceptor.java occur error message
+                .hasRootCauseMessage("MyBatis is configured as read-only. DML is not allowed.");
+    }
 }

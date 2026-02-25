@@ -13,7 +13,8 @@ import java.util.HashMap;
 
 /**
  * 해당 config에서는 DataSource를 등록한다.
- * 여기서 DataSource는 Transaction 요청 종류에 따라 READ, WRITE별 DataSource를 스위칭해서 반환한다.
+ * 여기서 DataSource는 Transaction 요청 종류에 따라 READ, WRITE별 DataSource를 스위칭해서 반환한다. (JPA 전용)
+ * Mybatis의 경우에는 @Transaction이 열리기 전에 getConnection을 타기 때문에 해당 분기를 타지 않음
  * -애플리케이션 시작 시
  * 1. yml 로딩
  * 2. DataSourceProperties에 값 바인딩
@@ -25,7 +26,7 @@ import java.util.HashMap;
  * 1. @Transactional 시작
  * 2. readOnly 여부 ThreadLocal에 저장
  * 3. routingDataSource.getConnection() 호출
- * 4. determineCurrentLookupKey() 실행
+ * 4. determineCurrentLookupKey() 실행 (AbstractRoutingDataSource 상속 받은 RoutingDataSource 참고)
  * 5. Map에서 DataSource 선택
  * 6. 실제 DB 연결 수행
  */
@@ -65,7 +66,7 @@ public class DataSourceConfig {
                 .build();
     }
 
-    // DataSource를 필요로 하는 모든 요청이 routingDataSource로 온다.
+    // DataSource를 필요로 하는 모든 요청이 routingDataSource로 온다. (@Primary)
     // Spring이 DataSource로 사용하면서 getConnection을 호출할 때, AbstractRoutingDataSource.determineCurrentLookupKey() 호출
     // 그때 등록한 targetDataSource Map의 Key, Value를 통해 write, read DataSource 호출
     @Primary
